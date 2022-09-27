@@ -32,34 +32,41 @@ function randomIndex() {
   return Math.floor(Math.random() * duckArray.length);
 }
 
+let indexArray = [];
+
 function renderImg() {
-  let imgOneindex = randomIndex();
-  let imgTwoindex = randomIndex();
-  let imgThreeindex = randomIndex();
+  // let imgOneindex = randomIndex();
+  // let imgTwoindex = randomIndex();
+  // let imgThreeindex = randomIndex();
 
-  while (imgOneindex === imgTwoindex) {
-    imgTwoindex = randomIndex();
+  while (indexArray.length < 6) {
+    let randomnum = randomIndex();
+    if (!indexArray.includes(randomnum)) {
+      indexArray.push(randomnum);
+    }
   }
 
-  while (imgThreeindex === imgOneindex) {
-    imgOneindex = randomIndex();
-  }
+  let imageOneindex = indexArray.shift();
+  let imageTwoindex = indexArray.shift();
+  let imageThreeindex = indexArray.shift();
 
-  while (imgThreeindex === imgTwoindex) {
-    imgThreeindex = randomIndex();
-  }
+  // while (imgOneindex === imgTwoindex ||imgThreeindex === imgTwoindex || imgThreeindex === imgOneindex) {
+  //   imgTwoindex = randomIndex();
+  //   imgOneindex = randomIndex();
+  //   imgThreeindex = randomIndex();
+  // }
 
-  imgOne.src = duckArray[imgOneindex].img;
-  imgTwo.src = duckArray[imgTwoindex].img;
-  imgThree.src = duckArray[imgThreeindex].img;
+  imgOne.src = duckArray[imageOneindex].img;
+  imgTwo.src = duckArray[imageTwoindex].img;
+  imgThree.src = duckArray[imageThreeindex].img;
 
-  duckArray[imgOneindex].views++;
-  duckArray[imgTwoindex].views++;
-  duckArray[imgThreeindex].views++;
+  duckArray[imageOneindex].views++;
+  duckArray[imageTwoindex].views++;
+  duckArray[imageThreeindex].views++;
 
-  imgOne.alt = duckArray[imgOneindex].name;
-  imgTwo.alt = duckArray[imgTwoindex].name;
-  imgThree.alt = duckArray[imgThreeindex].name;
+  imgOne.alt = duckArray[imageOneindex].name;
+  imgTwo.alt = duckArray[imageTwoindex].name;
+  imgThree.alt = duckArray[imageThreeindex].name;
 }
 // ****** Event handlers ****
 
