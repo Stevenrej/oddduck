@@ -40,6 +40,14 @@ h1 {
 
 }
 
+div p {
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: azure;
+ 
+  padding: 10px;
+}
+
 #showresultsbtn {
   text-align: center;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -53,6 +61,7 @@ h1 {
   color: rgb(255, 255, 255);
   letter-spacing: 3px;
   padding: 10px;
+  font-weight: 500;
 }
 
 li {

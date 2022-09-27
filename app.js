@@ -14,7 +14,8 @@ let imgTwo = document.getElementById('imgtwo');
 let imgThree = document.getElementById('imgthree');
 
 let resultsBtn = document.getElementById('showresultsbtn');
-let resultsContainer = document.getElementById('results-container');
+// let resultsContainer = document.getElementById('results-container');
+let canvasElem = document.getElementById('my-chart').getContext('2d');
 
 // ******  Contructor ******
 
@@ -35,9 +36,7 @@ function randomIndex() {
 let indexArray = [];
 
 function renderImg() {
-  // let imgOneindex = randomIndex();
-  // let imgTwoindex = randomIndex();
-  // let imgThreeindex = randomIndex();
+
 
   while (indexArray.length < 6) {
     let randomnum = randomIndex();
@@ -50,11 +49,6 @@ function renderImg() {
   let imageTwoindex = indexArray.shift();
   let imageThreeindex = indexArray.shift();
 
-  // while (imgOneindex === imgTwoindex ||imgThreeindex === imgTwoindex || imgThreeindex === imgOneindex) {
-  //   imgTwoindex = randomIndex();
-  //   imgOneindex = randomIndex();
-  //   imgThreeindex = randomIndex();
-  // }
 
   imgOne.src = duckArray[imageOneindex].img;
   imgTwo.src = duckArray[imageTwoindex].img;
@@ -67,6 +61,60 @@ function renderImg() {
   imgOne.alt = duckArray[imageOneindex].name;
   imgTwo.alt = duckArray[imageTwoindex].name;
   imgThree.alt = duckArray[imageThreeindex].name;
+}
+
+function renderChart() {
+
+  let duckNames = [];
+  let duckVotes = [];
+  let duckViews = [];
+
+  for (let i = 0; i < duckArray.length; i++) {
+    duckNames.push(duckArray[i].name);
+    duckVotes.push(duckArray[i].click);
+    duckViews.push(duckArray[i].views);
+  }
+  let myChartObj = {
+    type: 'bar',
+    data: {
+      labels: duckNames,
+      datasets: [{
+        data: duckVotes,
+        label: '# of Votes',
+        backgroundColor: [
+          '#4895ef',
+        ],
+        borderColor: [
+          '#4cc9f0'
+
+        ],
+        borderWidth: 3
+      },
+      {
+        data: duckViews,
+        label: '# of Views',
+        backgroundColor: [
+          '#b5179e'
+
+        ],
+        borderColor: [
+          '#f72585'
+        ],
+        borderWidth: 3
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+
+  // eslint-disable-next-line no-undef
+  new Chart(canvasElem, myChartObj);
 }
 // ****** Event handlers ****
 
@@ -81,24 +129,26 @@ function handleClick(event) {
   }
 
   voteCount--;
-  renderImg();
   if (voteCount === 0) {
     imgContainer.removeEventListener('click', handleClick);
     document.getElementById('imgone').style.display = 'none';
     document.getElementById('imgtwo').style.display = 'none';
     document.getElementById('imgthree').style.display = 'none';
     let clickresult = document.createElement('p');
-    clickresult.textContent = 'Click View Results for Statistics!';
+    clickresult.textContent = 'Click View Results to Reveal Chart Below!';
     imgContainer.appendChild(clickresult);
+  } else {
+    renderImg();
   }
 }
 
 function handleShowResults() {
   if (voteCount === 0) {
     for (let i = 0; i < duckArray.length; i++) {
-      let liElem = document.createElement('li');
-      liElem.textContent = `${duckArray[i].name.toUpperCase()} was seen ${duckArray[i].views} times and had ${duckArray[i].click} votes.`;
-      resultsContainer.appendChild(liElem);
+      // let liElem = document.createElement('li');
+      // liElem.textContent = `${duckArray[i].name.toUpperCase()} was seen ${duckArray[i].views} times and had ${duckArray[i].click} votes.`;
+      // resultsContainer.appendChild(liElem);
+      renderChart();
     }
     resultsBtn.removeEventListener('click', handleShowResults);
   }
@@ -128,6 +178,11 @@ new Duck('water-can', 'jpg');
 new Duck('wine-glass', 'jpg');
 
 renderImg();
+
+
+
+
+
 
 imgContainer.addEventListener('click', handleClick);
 resultsBtn.addEventListener('click', handleShowResults);
