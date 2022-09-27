@@ -1,10 +1,10 @@
 'use strict';
 
-console.log('HI')
+console.log('HI');
 
 // ******** Global Variables *****
 let voteCount = 25;
-let duckArray = []
+let duckArray = [];
 
 //  ******* DOM REFERENCE *****
 
@@ -69,7 +69,7 @@ function handleClick(event) {
 
   for (let i = 0; i < duckArray.length; i++) {
     if (duckArray[i].name === imgClicked) {
-      duckArray[i].click++
+      duckArray[i].click++;
     }
   }
 
@@ -77,19 +77,19 @@ function handleClick(event) {
   renderImg();
   if (voteCount === 0) {
     imgContainer.removeEventListener('click', handleClick);
-    document.getElementById('imgone').style.display='none';
-    document.getElementById('imgtwo').style.display='none';
-    document.getElementById('imgthree').style.display='none';
-    let clickresult = document.createElement('p')
-    clickresult.textContent="Click View Results for Statistics!";
-    imgContainer.appendChild(clickresult)
+    document.getElementById('imgone').style.display = 'none';
+    document.getElementById('imgtwo').style.display = 'none';
+    document.getElementById('imgthree').style.display = 'none';
+    let clickresult = document.createElement('p');
+    clickresult.textContent = 'Click View Results for Statistics!';
+    imgContainer.appendChild(clickresult);
   }
 }
 
 function handleShowResults() {
   if (voteCount === 0) {
     for (let i = 0; i < duckArray.length; i++) {
-      let liElem = document.createElement('li')
+      let liElem = document.createElement('li');
       liElem.textContent = `${duckArray[i].name.toUpperCase()} was seen ${duckArray[i].views} times and had ${duckArray[i].click} votes.`;
       resultsContainer.appendChild(liElem);
     }
@@ -106,7 +106,7 @@ new Duck('bathroom', 'jpg');
 new Duck('boots', 'jpg');
 new Duck('breakfast', 'jpg');
 new Duck('bubblegum', 'jpg');
-new Duck('chair', 'jpg')
+new Duck('chair', 'jpg');
 new Duck('cthulhu', 'jpg');
 new Duck('dog-duck', 'jpg');
 new Duck('dragon', 'jpg');
@@ -114,7 +114,7 @@ new Duck('pen', 'jpg');
 new Duck('pet-sweep', 'jpg');
 new Duck('scissors', 'jpg');
 new Duck('shark', 'jpg');
-new Duck('sweep', 'png')
+new Duck('sweep', 'png');
 new Duck('tauntaun', 'jpg');
 new Duck('unicorn', 'jpg');
 new Duck('water-can', 'jpg');
@@ -123,4 +123,4 @@ new Duck('wine-glass', 'jpg');
 renderImg();
 
 imgContainer.addEventListener('click', handleClick);
-resultsBtn.addEventListener('click', handleShowResults)
+resultsBtn.addEventListener('click', handleShowResults);
