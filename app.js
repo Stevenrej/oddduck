@@ -27,6 +27,7 @@ function Duck(name, fileExtension = 'jpg') {
 
   duckArray.push(this);
 }
+
 // ***** Helper Function ****
 
 function randomIndex() {
@@ -137,10 +138,17 @@ function handleClick(event) {
     let clickresult = document.createElement('p');
     clickresult.textContent = 'Click View Results to Reveal Chart Below!';
     imgContainer.appendChild(clickresult);
+
+    // ***** LOCAL STORAGE *****
+    let stringduck = JSON.stringify(duckArray);
+    localStorage.setItem('myDucks', stringduck);
+
   } else {
     renderImg();
   }
 }
+
+
 
 function handleShowResults() {
   if (voteCount === 0) {
@@ -154,28 +162,77 @@ function handleShowResults() {
   }
 }
 
+// ***** LOCAL STORAGE CONT. *****
+
+let grabduck = localStorage.getItem('myDucks');
+
+let parseduck = JSON.parse(grabduck);
+
+
 
 // ***** Executable Code *******
 
-new Duck('bag', 'jpg');
-new Duck('banana', 'jpg');
-new Duck('bathroom', 'jpg');
-new Duck('boots', 'jpg');
-new Duck('breakfast', 'jpg');
-new Duck('bubblegum', 'jpg');
-new Duck('chair', 'jpg');
-new Duck('cthulhu', 'jpg');
-new Duck('dog-duck', 'jpg');
-new Duck('dragon', 'jpg');
-new Duck('pen', 'jpg');
-new Duck('pet-sweep', 'jpg');
-new Duck('scissors', 'jpg');
-new Duck('shark', 'jpg');
-new Duck('sweep', 'png');
-new Duck('tauntaun', 'jpg');
-new Duck('unicorn', 'jpg');
-new Duck('water-can', 'jpg');
-new Duck('wine-glass', 'jpg');
+// if (grabduck) {
+//   duckArray = parseduck;
+// } else {
+//   new Duck('bag', 'jpg');
+//   new Duck('banana', 'jpg');
+//   new Duck('bathroom', 'jpg');
+//   new Duck('boots', 'jpg');
+//   new Duck('breakfast', 'jpg');
+//   new Duck('bubblegum', 'jpg');
+//   new Duck('chair', 'jpg');
+//   new Duck('cthulhu', 'jpg');
+//   new Duck('dog-duck', 'jpg');
+//   new Duck('dragon', 'jpg');
+//   new Duck('pen', 'jpg');
+//   new Duck('pet-sweep', 'jpg');
+//   new Duck('scissors', 'jpg');
+//   new Duck('shark', 'jpg');
+//   new Duck('sweep', 'png');
+//   new Duck('tauntaun', 'jpg');
+//   new Duck('unicorn', 'jpg');
+//   new Duck('water-can', 'jpg');
+//   new Duck('wine-glass', 'jpg');
+// }
+
+if (grabduck) {
+  for (let i = 0; i < parseduck.length; i++) {
+    if (parseduck[i].name === 'sweep') {
+      let recontructsweep = new Duck(parseduck[i].name, 'png');
+      recontructsweep.click = parseduck[i].click;
+      recontructsweep.views = parseduck[i].views;
+    } else {
+      let recontructduck = new Duck(parseduck[i].name);
+      recontructduck.click = parseduck[i].click;
+      recontructduck.views = parseduck[i].views;
+    }
+  }
+} else {
+  new Duck('bag', 'jpg');
+  new Duck('banana', 'jpg');
+  new Duck('bathroom', 'jpg');
+  new Duck('boots', 'jpg');
+  new Duck('breakfast', 'jpg');
+  new Duck('bubblegum', 'jpg');
+  new Duck('chair', 'jpg');
+  new Duck('cthulhu', 'jpg');
+  new Duck('dog-duck', 'jpg');
+  new Duck('dragon', 'jpg');
+  new Duck('pen', 'jpg');
+  new Duck('pet-sweep', 'jpg');
+  new Duck('scissors', 'jpg');
+  new Duck('shark', 'jpg');
+  new Duck('sweep', 'png');
+  new Duck('tauntaun', 'jpg');
+  new Duck('unicorn', 'jpg');
+  new Duck('water-can', 'jpg');
+  new Duck('wine-glass', 'jpg');
+}
+
+
+
+
 
 renderImg();
 
